@@ -1,0 +1,31 @@
+{
+  "name": "multidialogo/php-line-ending-normalizer",
+  "description": "Line ending normalizer: normalize line ending into text or files",
+  "keywords": [
+    "php",
+    "Line ending normalizer",
+    "New line normalizer",
+    "newline",
+    "newlines",
+    "line-end"
+  ],
+  "require": {
+    "php": "^7.4"
+  },
+  "minimum-stability": "stable",
+  "prefer-stable": true,
+  "autoload": {
+    "psr-4": {
+      "multidialogo\\LineEndingNormalizer\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "files": ["test/autoload.php"],
+    "psr-4": {
+      "multidialogo\\test\\LineEndingNormalizer\\": "test/"
+    }
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.6"
+  }
+}

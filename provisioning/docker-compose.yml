@@ -1,0 +1,11 @@
+services:
+  php-line-endings-normalizer:
+    working_dir: /app
+    environment:
+      COMPOSER_NO_DEV: "0"
+    build:
+      context: .
+      dockerfile: php-cli.Dockerfile
+    container_name: php-line-endings-normalizer
+    volumes:
+      - ./..:/app

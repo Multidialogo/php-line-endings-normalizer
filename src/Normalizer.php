@@ -5,10 +5,8 @@ namespace multidialogo\LineEndingNormalizer;
 
 class Normalizer
 {
-    public static function normalize(string $input): string
-    {
-        # ORDER IS IMPORTANT, carriage return + line feed must be evaluated before carriage return and line feed
-        $hexMap = [
+    # ORDER IS IMPORTANT, carriage return + line feed must be evaluated before carriage return and line feed
+    public const HEX_MAP = [
             '1.carriage_return_line_feed' => "\x0A \x0D",
             '2.carriage_return' => "\x0D",
             '3.line_feed' => "\x0A",
@@ -18,9 +16,10 @@ class Normalizer
             '7.line_separator' => "\xE2\x80\xA8",
             '8.paragraph_separator' => "\xE2\x80\xA9",
         ];
-
-        foreach ($hexMap as $value) {
-            $input = str_ireplace("{$value}", PHP_EOL, $input);
+    public static function normalize(string $input): string
+    {
+        foreach (static::HEX_MAP as $hexValue) {
+            $input = str_ireplace("{$hexValue}", PHP_EOL, $input);
         }
 
         return $input;

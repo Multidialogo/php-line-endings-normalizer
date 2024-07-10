@@ -7,29 +7,34 @@ use PHPUnit\Framework\TestCase;
 
 class NormalizerTest extends TestCase
 {
+
     /**
-     * @dataProvider provideData
+     * @dataProvider provideNormalizeCases
      */
-    public function testNormalizeFileContentsAndReturnFilePath(string $caseName, bool $override): void
+    public function testNormalize($caseName, $input): void
     {
-        static::assertFileEquals(
-            __DIR__ . "/fixtures/output/{$caseName}.txt",
-            Normalizer::normalizeFileContentsAndReturnFilePath(__DIR__ . "/fixtures/input/{$caseName}.txt", $override),
+        static::assertEquals(
+            static::getTokenizedText(PHP_EOL),
+            Normalizer::normalize($input),
             "{$caseName} failed"
         );
     }
 
-    public function provideData(): array
+    public function provideNormalizeCases(): array
     {
-        return [
-            ['carriage.return', false],
-            ['line.feed', false],
-            ['carriage.return.line.feed', false],
-            ['next.line', false],
-            ['vertical.tab', false],
-            ['form.feed', false],
-            ['line.separator', false],
-            ['paragraph.separator', false],
-        ];
+        $inputs = [];
+        foreach (Normalizer::HEX_MAP as $label => $hexValue) {
+            $inputs[] = [
+                str_replace('_', ' ', $label),
+                static::getTokenizedText($hexValue)
+            ];
+        }
+
+        return $inputs;
+    }
+
+    private function getTokenizedText(string $hexValue): string
+    {
+        return "This is{$hexValue}a simply{$hexValue}{$hexValue}test on new lines{$hexValue}...thanks{$hexValue}";
     }
 }
